@@ -3,20 +3,14 @@ import ProductAccordion from "../../components/product/accordiam/ProductAccordio
 import AboutusAccordion from "../../components/product/accordiam/AboutusAccordion";
 import CarouselContainer from "../../components/home/crousel/CarouselContainer";
 import { useRef, useState } from "react";
-import CEOImage from "../../../public/product.jpg"; // Example path to CEO's image
 import WarehouseCarousel from "./WarehouseCarousel"; // Create this component for warehouse images
-import image1 from "../../../public/product.jpg"; 
-import image2 from "../../../public/new-logo.png"; 
-import image3 from "../../../public/logo.png"; 
-import image4 from "../../../public/product.jpg"; 
-import image5 from "../../../public/new-logo.png"; 
 
 const images = [
-  "https://5.imimg.com/data5/SELLER/Default/2022/5/PW/BL/IM/67795200/whatsapp-image-2022-05-21-at-6-37-07-pm-1--1000x1000.jpeg",
-  "https://5.imimg.com/data5/SELLER/Default/2022/5/AZ/RV/BY/67795200/whatsapp-image-2022-05-21-at-6-37-07-pm-3--1000x1000.jpeg", 
-  "https://5.imimg.com/data5/SELLER/Default/2022/5/NK/WE/HV/67795200/67795200-location-1652952448000-1000x1000.jpg", 
-  "https://5.imimg.com/data5/SELLER/Default/2022/5/PW/BL/IM/67795200/whatsapp-image-2022-05-21-at-6-37-07-pm-1--1000x1000.jpeg", 
-  "https://5.imimg.com/data5/SELLER/Default/2022/5/AZ/RV/BY/67795200/whatsapp-image-2022-05-21-at-6-37-07-pm-3--1000x1000.jpeg"
+  "https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634722/sinnchem/whatsapp-image-2022-05-21-at-6-37-07-pm-1--1000x1000_zpyhju.jpg",
+  "https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634712/sinnchem/whatsapp-image-2022-05-21-at-6-37-07-pm-3--1000x1000_zaufrx.jpg", 
+  "https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634699/sinnchem/67795200-location-1652952448000-1000x1000_f0v6z9.jpg", 
+  "https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634722/sinnchem/whatsapp-image-2022-05-21-at-6-37-07-pm-1--1000x1000_zpyhju.jpg", 
+  "https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634712/sinnchem/whatsapp-image-2022-05-21-at-6-37-07-pm-3--1000x1000_zaufrx.jpg"
 ];
 
 function About() {
@@ -84,7 +78,7 @@ function About() {
 
           {/* CEO's Message */}
           <Box display="flex" flexDirection={{ xs: "column", md: "row" }} alignItems="center" gap={2}>
-            <Box component="img" src={"https://www.sinnchem.com/media/product/images/CEO_picture_BmWXkzW.PNG"} alt="CEO Image" sx={{ width: { xs: '100%', md: '150px' }, borderRadius: '50%' }} />
+            <Box component="img" src={"https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634678/sinnchem/CEO_picture_BmWXkzW_zyyikz.png"} alt="CEO Image" sx={{ width: { xs: '100%', md: '150px' }, borderRadius: '50%' }} />
             <Box>
               <Typography variant="h5" gutterBottom>CEO's Message</Typography>
               <Typography variant="body1" color="textSecondary" paragraph>
