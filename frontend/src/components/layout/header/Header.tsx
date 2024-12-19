@@ -21,11 +21,12 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import { Link, useNavigate } from "react-router-dom";
-import newLogo from "../../../assets/Image/new-logo.png";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { List, ListItem, Stack } from "@mui/material";
 import { updateProductIdAndCategory } from "../../../redux/reducer/ProductsReducer";
 import CloseIcon from "@mui/icons-material/Close";
+
+const  newLogo = 'https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634740/sinnchem/logo_xejhf2.png';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
