@@ -101,12 +101,18 @@ const ProductInquiryModal = ({ open, onClose, product }) => {
   return (
     <Modal open={open} onClose={onClose}>
       <Paper
-        sx={{
+         sx={{
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 500,
+          width: {
+            xs: "90%",
+            sm: "80%",
+            md: 500,
+          },
+          maxHeight: "90vh",
+          overflowY: "auto",
           p: 3,
           outline: "none",
         }}
