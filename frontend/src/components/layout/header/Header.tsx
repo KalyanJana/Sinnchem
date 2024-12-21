@@ -223,7 +223,7 @@ export function Header() {
                 onClose={handleCloseNavMenu}
                 sx={{
                   "& .MuiDrawer-paper": {
-                    width: "30%",
+                    width: "50%",
                     height: "100%",
                     backgroundColor: "#3f51b5",
                     color: "white",
