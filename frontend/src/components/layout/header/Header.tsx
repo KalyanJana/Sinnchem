@@ -25,7 +25,8 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { List, ListItem, Stack, Drawer, Divider } from "@mui/material";
 import { updateProductIdAndCategory } from "../../../redux/reducer/ProductsReducer";
 import CloseIcon from "@mui/icons-material/Close";
-const newLogo = 'https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634740/sinnchem/logo_xejhf2.png';
+// const newLogo = 'https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634740/sinnchem/logo_xejhf2.png';
+const newLogo = 'https://res.cloudinary.com/dr5kay5i6/image/upload/v1734796331/sinnchem/sinnchem_new_logo_v7glhv.png';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -211,7 +212,7 @@ export function Header() {
             >
               <Box
                 component="img"
-                sx={{ height: "50px", width: "100px", borderRadius: "5%" }}
+                sx={{ height: "50px", width: "100px", borderRadius: "50%" }}
                 src={newLogo}
               />
             </Box>
