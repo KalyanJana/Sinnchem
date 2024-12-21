@@ -22,11 +22,10 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { List, ListItem, Stack } from "@mui/material";
+import { List, ListItem, Stack, Drawer, Divider } from "@mui/material";
 import { updateProductIdAndCategory } from "../../../redux/reducer/ProductsReducer";
 import CloseIcon from "@mui/icons-material/Close";
-
-const  newLogo = 'https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634740/sinnchem/logo_xejhf2.png';
+const newLogo = 'https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634740/sinnchem/logo_xejhf2.png';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -83,16 +82,15 @@ export function Header() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
+  const handleOpenNavMenu = () => {
+    setMobileOpen(true);
   };
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+    setMobileOpen(false);
   };
 
   function searchChangeHandler(e) {
@@ -120,6 +118,19 @@ export function Header() {
   function handleCloseInfoBox() {
     setShowInfoBox(false);
   }
+
+  React.useEffect(() => {
+    function handleClickOutside(event) {
+      if (!event.target.closest(".search-result-container")) {
+        setFilteredProducts([]);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       {/* Company Information Banner */}
@@ -182,9 +193,9 @@ export function Header() {
       )}
 
       {/* Header with AppBar */}
-      <AppBar position="static"  sx={{p: '0.3rem 0'}}>
+      <AppBar position="static" sx={{ p: "0.3rem 0" }}>
         <Container maxWidth="lg">
-          <Toolbar disableGutters sx={{justifyContent: {xs: 'space-between'}}}>
+          <Toolbar disableGutters sx={{ justifyContent: { xs: "space-between" } }}>
             <Box
               component={Link}
               to="/"
@@ -198,7 +209,7 @@ export function Header() {
             </Box>
 
             {/* Hamburger menu for smaller screens */}
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" },}}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
                 onClick={handleOpenNavMenu}
@@ -206,29 +217,44 @@ export function Header() {
               >
                 <MenuIcon />
               </IconButton>
-              <Menu
-                anchorEl={anchorElNav}
-                open={Boolean(anchorElNav)}
+              <Drawer
+                anchor="left"
+                open={mobileOpen}
                 onClose={handleCloseNavMenu}
+                sx={{
+                  "& .MuiDrawer-paper": {
+                    width: "30%",
+                    height: "100%",
+                    backgroundColor: "#3f51b5",
+                    color: "white",
+                    padding: "1rem",
+                  },
+                }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page.id} onClick={handleCloseNavMenu}>
-                    <Link
-                      to={page.path}
-                      style={{ textDecoration: "none", color: "inherit" }}
-                    >
-                      {page.name}
-                    </Link>
-                  </MenuItem>
-                ))}
-              </Menu>
+                <Box>
+                  <Typography variant="h6" sx={{ mb: 2 }}>
+                    Menu
+                  </Typography>
+                  <Divider sx={{ backgroundColor: "white" }} />
+                  {pages.map((page) => (
+                    <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+                      <Link
+                        to={page.path}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        {page.name}
+                      </Link>
+                    </MenuItem>
+                  ))}
+                </Box>
+              </Drawer>
             </Box>
 
             {/* Logo for smaller screens */}
             <Box
               component={Link}
               to="/"
-              sx={{ display: { xs: "flex", md: "none" }, mr: '3rem',}}
+              sx={{ display: { xs: "flex", md: "none" }, mr: "3rem" }}
             >
               <Box
                 component="img"
@@ -271,12 +297,13 @@ export function Header() {
               </Search>
               {filteredProducts.length > 0 && (
                 <Paper
+                  className="search-result-container"
                   sx={{
                     position: "absolute",
                     top: "55px",
                     width: "100%",
                     maxHeight: "300px",
-                    zIndex: 1,
+                    zIndex: 1300,
                     overflowY: "auto",
                   }}
                 >
