@@ -109,7 +109,7 @@ function EmailModal({ open, handleClose }) {
               }}
             >
               {products.map((product) => (
-                <MenuItem key={product.id} value={product.name}>
+                <MenuItem key={product._id} value={product.name}>
                   <Checkbox
                     checked={selectedProducts.includes(product.name)}
                     onChange={() => handleProductChange(product.name)}

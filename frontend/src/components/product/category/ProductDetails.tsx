@@ -27,18 +27,20 @@ const rows = [
 ];
 
 function ProductDetails({ product, handleModalOpen }) {
-  console.log("product", product);
+  // console.log("product", product);
 
   const productSpecificationArray = Object.entries(product?.specification);
 
-  let productAdditionalInfoArray = []
-  
-  if(product?.additionalInformation && Object.keys(product?.additionalInformation).length > 0){
-      productAdditionalInfoArray = Object.entries(
-      product?.additionalInformation)
+  let productAdditionalInfoArray = [];
+
+  if (
+    product?.additionalInformation &&
+    Object.keys(product?.additionalInformation).length > 0
+  ) {
+    productAdditionalInfoArray = Object.entries(product?.additionalInformation);
   }
 
-  console.log("productAdditionalInfoArray",productAdditionalInfoArray )
+  // console.log("productAdditionalInfoArray",productAdditionalInfoArray )
   const productDescription = product.description;
 
   return (
@@ -178,55 +180,54 @@ function ProductDetails({ product, handleModalOpen }) {
       </TableContainer>
 
       {/* product additional information  */}
-      {productAdditionalInfoArray.length > 0 && 
-            <TableContainer
-            component={Paper}
-            sx={{ width: "100%", maxWidth: "600px", margin: "auto" }}
+      {productAdditionalInfoArray.length > 0 && (
+        <TableContainer
+          component={Paper}
+          sx={{ width: "100%", maxWidth: "600px", margin: "auto" }}
+        >
+          <Table
+            aria-label="simple table"
+            size="small"
+            sx={{ borderCollapse: "collapse" }}
           >
-            <Table
-              aria-label="simple table"
-              size="small"
-              sx={{ borderCollapse: "collapse" }}
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell sx={{ fontWeight: "bold", padding: "8px" }}>
-                    Additiona Information{" "}
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ fontWeight: "bold", padding: "8px" }}>
+                  Additiona Information{" "}
+                </TableCell>
+                <TableCell sx={{ fontWeight: "bold", padding: "8px" }}>
+                  {" "}
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {productAdditionalInfoArray.map(([key, value], index) => (
+                <TableRow
+                  key={key}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row" sx={{ padding: "8px" }}>
+                    {key}
                   </TableCell>
-                  <TableCell sx={{ fontWeight: "bold", padding: "8px" }}>
-                    {" "}
+                  <TableCell
+                    align="left"
+                    sx={{
+                      padding: "8px",
+                      maxHeight: "100px", // Adjust height as needed
+                      maxWidth: "200px", // Adjust width as needed
+                      overflowY: "auto",
+                      whiteSpace: "normal", // Allow text to wrap
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    {value}
                   </TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {productAdditionalInfoArray.map(([key, value], index) => (
-                  <TableRow
-                    key={key}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row" sx={{ padding: "8px" }}>
-                      {key}
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      sx={{
-                        padding: "8px",
-                        maxHeight: "100px", // Adjust height as needed
-                        maxWidth: "200px", // Adjust width as needed
-                        overflowY: "auto",
-                        whiteSpace: "normal", // Allow text to wrap
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      {value}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-      }
-
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
 
       {/* product ratings and Reviews  */}
 

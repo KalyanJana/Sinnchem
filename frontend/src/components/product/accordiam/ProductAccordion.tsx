@@ -9,10 +9,16 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { Category } from "@mui/icons-material";
 import { Box, Paper, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { updateCategoryDetails, updateProductIdAndCategory } from "../../../redux/reducer/ProductsReducer";
+import {
+  updateCategoryDetails,
+  updateProductIdAndCategory,
+} from "../../../redux/reducer/ProductsReducer";
 
-function ProductAccordion({scrollToCategory, setSelectedProduct, isCalledFromAbout=false}) {
-  
+function ProductAccordion({
+  scrollToCategory,
+  setSelectedProduct,
+  isCalledFromAbout = false,
+}) {
   const products = useAppSelector((state) => state.products.products);
 
   const storedCategoryDetails = useAppSelector(
@@ -22,7 +28,7 @@ function ProductAccordion({scrollToCategory, setSelectedProduct, isCalledFromAbo
 
   const dispatch = useAppDispatch();
 
-  //converting products to category wise 
+  //converting products to category wise
   const categoryDetails = Object.values(
     products.reduce((acc, product) => {
       const { category } = product;
@@ -45,24 +51,30 @@ function ProductAccordion({scrollToCategory, setSelectedProduct, isCalledFromAbo
     dispatch(updateCategoryDetails(categoryDetails));
   }, []);
 
+  const currentProductId = useAppSelector(
+    (state) => state.products.currentProductId
+  );
+  const currentCategory = useAppSelector(
+    (state) => state.products.currentCategory
+  );
 
-  const currentProductId = useAppSelector(state => state.products.currentProductId)
-  const currentCategory = useAppSelector(state => state.products.currentCategory)
-
-  React.useEffect(()=>{
-    if(currentCategory){
-      setExpandedCategory(currentCategory)
-      scrollToCategory(currentCategory)
+  React.useEffect(() => {
+    if (currentCategory) {
+      setExpandedCategory(currentCategory);
+      scrollToCategory(currentCategory);
     }
-    setSelectedProduct({ category: currentCategory, productId: currentProductId  });
-  }, [currentProductId, currentCategory])
+    setSelectedProduct({
+      category: currentCategory,
+      productId: currentProductId,
+    });
+  }, [currentProductId, currentCategory]);
 
   const handleAccordionChange = (category) => {
     setExpandedCategory((prev) => (prev === category ? null : category));
-    scrollToCategory(category)
+    scrollToCategory(category);
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function changeHandler(productId, category) {
     setSelectedProduct({ category, productId });
@@ -72,10 +84,11 @@ function ProductAccordion({scrollToCategory, setSelectedProduct, isCalledFromAbo
     // ];
     // dispatch(updateCategoryDetails(upatatedCategoryDetials));
 
-    if(isCalledFromAbout){
-      dispatch(updateProductIdAndCategory({category: category, productId: productId}));
+    if (isCalledFromAbout) {
+      dispatch(
+        updateProductIdAndCategory({ category: category, productId: productId })
+      );
     }
-    
   }
 
   return (
@@ -83,7 +96,12 @@ function ProductAccordion({scrollToCategory, setSelectedProduct, isCalledFromAbo
       <Typography
         variant="p"
         component={Paper}
-        sx={{ bgcolor: "lightgray", fontWeight: "500", p: "1rem", fontSize: '1rem' }}
+        sx={{
+          bgcolor: "lightgray",
+          fontWeight: "500",
+          p: "1rem",
+          fontSize: "1rem",
+        }}
       >
         Our Products
       </Typography>
@@ -119,10 +137,9 @@ function ProductAccordion({scrollToCategory, setSelectedProduct, isCalledFromAbo
                   <Link
                     component="button"
                     variant="body2"
-                    // onClick={() => navigate(`/product/${product.id}`)}
-                    to={isCalledFromAbout ? "/products": ""}
+                    to={isCalledFromAbout ? "/products" : ""}
                     onClick={() =>
-                      changeHandler(product.id, categoryItem.category)
+                      changeHandler(product._id, categoryItem.category)
                     }
                     // color="primary"
                     underline="hover"

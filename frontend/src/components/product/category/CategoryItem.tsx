@@ -40,7 +40,8 @@ function CategoryItem({category, selectedProduct}) {
   // When selectedProduct changes, update the active tab accordingly
   React.useEffect(() => {
     if (selectedProduct.category === category.category) {
-      const productIndex = category.products.findIndex(product => product.id === selectedProduct.productId);
+      const productIndex = category.products.findIndex(product => product._id === selectedProduct.productId);
+      console.log("Product", productIndex)
       if (productIndex !== -1) {
         setValue(productIndex); 
       }
