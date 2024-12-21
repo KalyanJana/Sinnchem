@@ -2,48 +2,39 @@ import {
   Box,
   Button,
   Card,
-  Container,
   Grid,
-  InputAdornment,
+  IconButton,
   TextField,
   Typography,
+  InputAdornment,
 } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import TurnRightOutlinedIcon from "@mui/icons-material/TurnRightOutlined";
-import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import EmailModal from "../../modal/MailModal";
 import axios from "../../../config/axiosConfig";
 
 const initalFormData = {
   mobileNo: "",
-  requirementDetails: ""
-}
+  requirementDetails: "",
+};
 
 function ContactForm() {
+  const [formData, setFormData] = useState(initalFormData);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [formData, setFormData] = useState(initalFormData)
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-  
-    const handleOpenModal = () => setIsModalOpen(true);
-    const handleCloseModal = () => setIsModalOpen(false);
-
-  const changeHandler = (e)=>{
-    const {name, value} = e.target
-
-    setFormData(prev=>{
-      return {...prev, [name]: value}
-    })
-  }
-
+  const changeHandler = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const validateForm = () => {
     const { mobileNo, requirementDetails } = formData;
@@ -53,17 +44,13 @@ function ContactForm() {
       return false;
     }
 
-    if (mobileNo.length !== 10 || !/^\d+$/.test(mobileNo)) {
-      toast.error("Mobile number must be exactly 10 digits", {
-        position: "bottom-center",
-      });
+    if (mobileNo.length !== 10 || !/^[\d]+$/.test(mobileNo)) {
+      toast.error("Mobile number must be exactly 10 digits", { position: "bottom-center" });
       return false;
     }
 
     if (!requirementDetails.trim()) {
-      toast.error("Requirement details cannot be blank", {
-        position: "bottom-center",
-      });
+      toast.error("Requirement details cannot be blank", { position: "bottom-center" });
       return false;
     }
 
@@ -72,50 +59,37 @@ function ContactForm() {
 
   const submitHandler = async () => {
     if (!validateForm()) return;
+
     const bodyData = {
-      subject: `${formData.mobileNo} : quereis`,
-      text: formData
-    }
+      subject: `${formData.mobileNo} : queries`,
+      text: formData,
+    };
+
     try {
       const response = await axios.post("/api/v1/products/send-mail", bodyData);
-      setFormData(initalFormData)
+      setFormData(initalFormData);
       if (response.data.message) {
         toast.success(response.data.message, { position: "bottom-center" });
       }
-      
     } catch (error) {
-      setFormData(initalFormData)
+      setFormData(initalFormData);
       toast.error(
         error.response?.data?.message || "Something went wrong. Please try again.",
         { position: "bottom-center" }
       );
-      
     }
   };
 
-  const sendMailHandler = ()=>{
-    toast.success(
-      "Submitted successfully! Our representative will contact you shortly.",
-      {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      }
-    );
-  }
-
   const handleWhatsAppRedirect = () => {
-    const phone = "919733241500"; // Include country code without '+'
-    const text = "Hello"; // Message to send
-    const whatsappLink = `https://wa.me/${phone}?text=${encodeURIComponent(
-      text
-    )}`;
-    window.open(whatsappLink, "_blank"); // Open WhatsApp in a new tab
+    const phone = `91${import.meta.env.VITE_WHATSHAP_MOBILE_NUMBER}`;
+    const text = "Hi";
+    const whatsappLink = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+    window.open(whatsappLink, "_blank");
+  };
+
+  const handleGetDirections = () => {
+      const locationUrl = import.meta.env.VITE_COMPANY_LOCATION_URL;
+      window.open(locationUrl, "_blank");  
   };
 
   return (
@@ -143,7 +117,7 @@ function ContactForm() {
             Flat No. 102, Block G, Gulmohar Gardens, Shakti Sri Nagar, Mallapur,
             Hyderabad - 500076, Telangana, India
           </Typography>
-          <Button>
+          <Button onClick={handleGetDirections} variant="text" color="primary" sx={{ mt: 1 }}>
             <TurnRightOutlinedIcon fontSize="small" /> Get Directions
           </Button>
         </Box>
@@ -157,18 +131,18 @@ function ContactForm() {
           </Typography>
         </Box>
 
-        <Box display="flex">
+        <Box display="flex" alignItems="center">
           <IconButton>
             <CallOutlinedIcon />
           </IconButton>
           <Box display="flex" flexDirection="column">
-            <Typography variant="h6" sx={{ marginLeft: 1 }}>
-              Call :+91 8047660154
+            <Typography variant="h6" sx={{ marginLeft: 1, color: "#1976d2", fontWeight: "bold" }}>
+              {`Call : +91 ${import.meta.env.VITE_CALL_MOBILE_NUMBER}`}
             </Typography>
             <Typography
-              variant="body1"
-              fontSize={"small"}
-              sx={{ marginLeft: 1 }}
+              variant="body2"
+              fontSize="small"
+              sx={{ marginLeft: 1, color: "#4caf50" }}
             >
               70% Call Response Rate
             </Typography>
@@ -185,20 +159,16 @@ function ContactForm() {
             mt: "1rem",
           }}
         >
-          {/* <Button variant="contained">
-            <MessageOutlinedIcon sx={{ marginRight: "0.5rem" }} /> Send SMS
-          </Button> */}
           <Button variant="contained" onClick={handleOpenModal}>
             <EmailOutlinedIcon sx={{ marginRight: "0.5rem" }} /> Send Email
           </Button>
           <EmailModal
-              open={isModalOpen}
-              handleClose={handleCloseModal}
-              userEmail="example@domain.com"
+            open={isModalOpen}
+            handleClose={handleCloseModal}
+            userEmail="example@domain.com"
           />
           <Button variant="outlined" onClick={handleWhatsAppRedirect}>
-            <WhatsAppIcon sx={{ marginRight: "0.5rem", color: "#25D366" }} />{" "}
-            Chat on WhatsApp
+            <WhatsAppIcon sx={{ marginRight: "0.5rem", color: "#25D366" }} /> Chat on WhatsApp
           </Button>
         </Grid>
       </Grid>
@@ -216,9 +186,7 @@ function ContactForm() {
             margin: { xs: "1rem auto", md: "0rem auto 1rem auto" },
           }}
         >
-          <Typography variant="h5">
-            Leave a Message, We will can you back!
-          </Typography>
+          <Typography variant="h5">Leave a Message, We will call you back!</Typography>
           <TextField
             name="mobileNo"
             label="Mobile Number"
@@ -226,30 +194,19 @@ function ContactForm() {
             id="outlined-start-adornment"
             value={formData.mobileNo}
             onChange={changeHandler}
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start">+91</InputAdornment>
-                ),
-              },
+            InputProps={{
+              startAdornment: <InputAdornment position="start">+91</InputAdornment>,
             }}
           />
           <TextField
             name="requirementDetails"
             label="Requirement Details"
-            placeholder="Additional details about your requirements.."
+            placeholder="Additional details about your requirements..."
             id="outlined-multiline-static"
             multiline
             value={formData.requirementDetails}
             onChange={changeHandler}
             rows={4}
-            slotProps={{
-              input: {
-                startAdornment: (
-                  <InputAdornment position="start"></InputAdornment>
-                ),
-              },
-            }}
           />
           <Button
             variant="contained"

@@ -36,11 +36,18 @@ const Search = styled("div")(({ theme }) => ({
   },
   marginLeft: 0,
   width: "100%",
+  transition: theme.transitions.create(["margin-left", "width"], {
+    duration: theme.transitions.duration.standard,
+  }),
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
   },
+  "&:focus-within": {
+    marginLeft: "-1rem", // Shift slightly to the left
+  },
 }));
+
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -67,6 +74,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
 
 const pages = [
   { id: 1, name: "Home", path: "/home" },
@@ -178,7 +186,7 @@ export function Header() {
             </Box>
             <Box display="flex" alignItems="center">
               <PhoneIcon sx={{ mr: 1 }} />
-              <Typography variant="body2">+91 9850498435</Typography>
+              <Typography variant="body2">{`+91 ${import.meta.env.VITE_CALL_MOBILE_NUMBER}`}</Typography>
             </Box>
             {/* Close button for the info box */}
             <IconButton
@@ -203,7 +211,7 @@ export function Header() {
             >
               <Box
                 component="img"
-                sx={{ height: "50px", width: "100px", borderRadius: "50%" }}
+                sx={{ height: "50px", width: "100px", borderRadius: "5%" }}
                 src={newLogo}
               />
             </Box>
@@ -313,7 +321,7 @@ export function Header() {
                         key={product.id}
                         button
                         onClick={() =>
-                          clickHandler(product.category, product.id)
+                          clickHandler(product.category, product._id)
                         }
                       >
                         {product.name}

@@ -29,7 +29,7 @@ const ProductInquiryModal = ({ open, onClose, product }) => {
     code: "+91",
   });
   const [mobileNo, setMobileNo] = useState("");
-  const [address, setAddress] = useState("");
+  const [message, setMessage] = useState("");
   const [quantity, setQuantity] = useState(product.defaultQuantity || 1);
   const [unit, setUnit] = useState("kg");
   const [editQuantity, setEditQuantity] = useState(false);
@@ -52,8 +52,8 @@ const ProductInquiryModal = ({ open, onClose, product }) => {
       });
       return false;
     }
-    if (!address.trim()) {
-      toast.error("Address cannot be empty.", { position: "bottom-center" });
+    if (!message.trim()) {
+      toast.error("Message cannot be empty.", { position: "bottom-center" });
       return false;
     }
     return true;
@@ -77,7 +77,7 @@ const ProductInquiryModal = ({ open, onClose, product }) => {
         countryName: selectedCountry.name,
         phoneCode: selectedCountry.code,
         mobileNo,
-        address,
+        message,
       },
     };
 
@@ -107,7 +107,7 @@ const ProductInquiryModal = ({ open, onClose, product }) => {
           left: "50%",
           transform: "translate(-50%, -50%)",
           width: {
-            xs: "90%",
+            xs: "96%",
             sm: "80%",
             md: 500,
           },
@@ -197,7 +197,7 @@ const ProductInquiryModal = ({ open, onClose, product }) => {
                   ))}
                 </TextField>
                 <TextField
-                  label="Mobile Number *"
+                  label="Mobile Number"
                   value={mobileNo}
                   onChange={(e) => setMobileNo(e.target.value)}
                   type="tel"
@@ -208,12 +208,12 @@ const ProductInquiryModal = ({ open, onClose, product }) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                value={address}
-                label="Address"
+                value={message}
+                label="Message.."
                 multiline
                 rows={2}
                 fullWidth
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={(e) => setMessage(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
