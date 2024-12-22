@@ -1,7 +1,6 @@
 import transporter from "../config/mailConfig.js";
 import Product from "../schema/product.js";
 import cloudinary from "cloudinary";
-import stringify from "json-stringify-pretty-compact";
 
 // GET all products
 export const getAllProducts = async (req, res) => {
@@ -29,50 +28,20 @@ export const getProductsById = async (req, res) => {
   }
 };
 
-// // CREATE a new product (with image upload)
-// export const createProduct = async (req, res) => {
-//   try {
-//     const { name, category, price, details } = req.body;
-//     const images = [];
-
-//     if (req.files && req.files.length > 0) {
-//       req.files.forEach((file) => {
-//         images.push(file.path); // Save the Cloudinary URL
-//       });
-//     }
-
-//     const newProduct = new Product({
-//       name,
-//       category,
-//       price,
-//       details: JSON.parse(details), // Assuming `details` is sent as JSON string
-//       image: images,
-//     });
-
-//     console.log("Products ", newProduct)
-
-//     await newProduct.save();
-//     res.status(201).json(newProduct);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
 // Create Product Controller
 export const createProduct = async (req, res) => {
   try {
-    // Retrieve product data from the request body
-    const { name, category, price, minimumQuantity, description } = req.body;
+    const { name, category, price, unit, minimumQuantity, description } = req.body;
 
-    let { specification, additionalInformation } = req.body; // from body to convert to object
+    let { specification, additionalInformation } = req.body;
 
     // Parse description if it is sent as a JSON string
     if (typeof specification === "string") {
-      specification = JSON.parse(specification); // Convert to object
+      specification = JSON.parse(specification); 
     }
-    // Parse description if it is sent as a JSON string
+
     if (typeof additionalInformation === "string") {
-      additionalInformation = JSON.parse(additionalInformation); // Convert to object
+      additionalInformation = JSON.parse(additionalInformation); 
     }
 
     // Check if images are present
@@ -106,24 +75,22 @@ export const createProduct = async (req, res) => {
       imageUrls.push(uploadedImage.secure_url); // Collect image URLs
     }
 
-    // Create a new product object
     const newProduct = new Product({
       name,
       category,
       price,
+      unit, 
       minimumQuantity,
       specification,
       description,
       additionalInformation,
-      images: imageUrls, // Save array of image URLs
+      images: imageUrls, 
     });
 
-    // Save the product to the database
     await newProduct.save();
 
-    // Send a success response
     res.status(201).json({
-      message: "Product created successfully",
+      message: "Product created successfully!",
       product: newProduct,
     });
   } catch (error) {
@@ -165,7 +132,7 @@ export const updateProductById = async (req, res) => {
   }
 };
 
-// DELETE product by ID
+
 export const deleteProductById = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
@@ -180,28 +147,7 @@ export const deleteProductById = async (req, res) => {
   }
 };
 
-//send mail
-// export const mailContact = async(req, res)=>{
-//   try {
-//     const { name, email, message } = req.body;
 
-//     const userMessage = `Hey, I am ${name}. My email is ${email}. My message is ${message}.`;
-
-//     await sendMail(userMessage);
-
-//     return res.status(200).json({
-//       success: true,
-//       message: "Message Sent Successfully",
-//     });
-//   } catch (error) {
-//     return res.status(400).json({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// }
-
-// 1. Send Email
 export const mailContact = async (req, res) => {
   try {
     const { subject, text } = req.body;
@@ -217,19 +163,18 @@ ${Object.entries(text)
   .join("\n")}
 
 Regards,
-Website Query
+Sinnchem Website Query
 `;
 
-    // Send email
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER,
-      subject: subject || "New Website Query",
+      subject: subject || "New Sinnchem Website Query",
       text: formattedText,
     });
 
     res.status(200).json({
-      message: "Email sent successfully",
+      message: "Message sent successfully",
     });
   } catch (error) {
     console.error("Error sending email:", error);
@@ -244,30 +189,6 @@ Website Query
 const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1).replace(/_/g, " ");
 };
-
-// // 2. Send SMS
-// router.post("/send-sms", async (req, res) => {
-//   try {
-//     const { to, message } = req.body;
-
-//     // Send SMS via Twilio
-//     const response = await twilioClient.messages.create({
-//       body: message,
-//       from: process.env.TWILIO_PHONE_NUMBER,
-//       to,
-//     });
-
-//     res.status(200).json({
-//       message: "SMS sent successfully",
-//       data: response,
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       message: "Error sending SMS",
-//       error: error.message,
-//     });
-//   }
-// });
 
 // 3. WhatsApp Redirection
 export const whatshapContact = async (req, res) => {
@@ -293,4 +214,3 @@ export const whatshapContact = async (req, res) => {
   }
 };
 
-// export default router;

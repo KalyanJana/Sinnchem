@@ -12,9 +12,14 @@ const productSchema = new mongoose.Schema({
     trim: true,
   },
   price: {
-    type: String,
+    type: Number,
     required: false,
     trim: true,
+  },
+  unit: {
+    type: String,
+    requried: false,
+    trim: true
   },
   minimumQuantity: {
     type: Number,
