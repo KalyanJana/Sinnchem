@@ -19,12 +19,13 @@ import {
 } from "@mui/material";
 import { toast } from "react-toastify";
 import { useAppSelector } from "../../redux/hooks";
-import axios from "../../config/axiosConfig"; // Ensure axios is imported
+import axios from "../../config/axiosConfig";
 
 function EmailModal({ open, handleClose }) {
   const products = useAppSelector((state) => state.products.products);
   const [email, setEmail] = useState("");
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleProductChange = (productName) => {
@@ -46,15 +47,27 @@ function EmailModal({ open, handleClose }) {
     }
 
     if (!selectedProducts.length) {
-      toast.error("Please select at least one product", { position: "bottom-center" });
+      toast.error("Please select at least one product", {
+        position: "bottom-center",
+      });
       return;
     }
 
-    setLoading(true); // Start loading spinner
+    if (!message.trim()) {
+      toast.error("Message cannot be blank", { position: "bottom-center" });
+      return;
+    }
+
+    setLoading(true);
+
+    const queryMessage = {
+      products: selectedProducts,
+      message: message,
+    };
 
     const formData = {
       subject: `${email} : queries`,
-      text: selectedProducts,
+      text: queryMessage,
     };
 
     try {
@@ -63,22 +76,29 @@ function EmailModal({ open, handleClose }) {
         toast.success(response.data.message, { position: "bottom-center" });
       }
 
-      // Clear form after successful submission
       setEmail("");
       setSelectedProducts([]);
+      setMessage("");
     } catch (error) {
       toast.error(
-        error.response?.data?.message || "Something went wrong. Please try again.",
+        error.response?.data?.message ||
+          "Something went wrong. Please try again.",
         { position: "bottom-center" }
       );
     } finally {
-      setLoading(false); // Stop loading spinner
+      setLoading(false);
       handleClose();
     }
   };
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      fullWidth
+      maxWidth="sm"
+      sx={{ "& .MuiDialog-paper": { width: { xs: "96%", sm: "auto" } } }}
+    >
       <DialogTitle sx={{ textAlign: "center", fontWeight: "bold" }}>
         Send Email
       </DialogTitle>
@@ -140,6 +160,20 @@ function EmailModal({ open, handleClose }) {
               </Box>
             </>
           )}
+        </Box>
+
+        {/* Message Input */}
+        <Box sx={{ marginBottom: 3 }}>
+          <TextField
+            fullWidth
+            label="Message"
+            variant="outlined"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Enter your message"
+            multiline
+            rows={4}
+          />
         </Box>
 
         {/* Company Details */}

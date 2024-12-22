@@ -127,13 +127,15 @@ const ProductInquiryModal = ({ open, onClose, product }) => {
           <Typography variant="subtitle1" gutterBottom>
             <b>Product Name:</b> {product.name}
           </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            <b>CAS No:</b> {product.cas}
+          {product.specification["Cas No"] && (
+            <Typography variant="subtitle1" gutterBottom>
+              <b>CAS No:</b> {product.specification["Cas No"]}
           </Typography>
+          )}
           {product?.price && (
             <Typography variant="subtitle1" gutterBottom>
-              <b>Price:</b> ₹{product.price}
-            </Typography>
+              <b>Price:</b> {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(product.price)}
+          </Typography>
           )}
 
           <Box display="flex" alignItems="center" sx={{ gap: 1, mt: 1 }}>
@@ -182,7 +184,7 @@ const ProductInquiryModal = ({ open, onClose, product }) => {
                   label="Code"
                   value={selectedCountry.code}
                   size="small"
-                  sx={{ width: "30%" }}
+                  sx={{ width: "30%", minWidth: "80px" }}
                   onChange={(e) =>
                     setSelectedCountry((prev) => ({
                       ...prev,
@@ -209,7 +211,7 @@ const ProductInquiryModal = ({ open, onClose, product }) => {
             <Grid item xs={12}>
               <TextField
                 value={message}
-                label="Message.."
+                label="Your message..."
                 multiline
                 rows={2}
                 fullWidth

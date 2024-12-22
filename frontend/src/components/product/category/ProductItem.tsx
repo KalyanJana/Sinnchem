@@ -31,13 +31,10 @@ function ProductItem({product}) {
             flexDirection: 'column', 
             gap: '1rem', 
             alignItems: 'flex-end', 
-            // position: "sticky",
             position: { xs: "static", sm: "sticky" },
             top: { md: "7.5rem" },
             mb: { xs: "2rem", md: '0px' },
-            // top: "6rem", // Distance from the top for the sticky effect
             height: "fit-content", // Keeps the container size fixed
-            // border: '1px solid red'
           }}
       >
         {/* image */}
@@ -63,7 +60,6 @@ function ProductItem({product}) {
                     <CardMedia
                       component="img"
                       sx={{ width: "100%", height: "50px"}}
-                      // image={productImage}
                       image={img}
                       alt={`Product thumbnail ${index + 1}`}
                     />
@@ -77,8 +73,7 @@ function ProductItem({product}) {
           <Grid item xs={10} component={Paper}>
             <CardMedia
               component="img"
-              sx={{ width: "100%", height: "400px"}}
-              // image={productImage}
+              sx={{ width: "100%", height: "400px", objectFit: "contain",}}
               image={selectedImage}
               alt="Main product"
             />

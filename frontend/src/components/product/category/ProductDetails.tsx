@@ -11,7 +11,6 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import CurrencyRupeeOutlinedIcon from "@mui/icons-material/CurrencyRupeeOutlined";
 import { Link } from "react-router-dom";
 
 function createData(name: string, description: string) {
@@ -72,15 +71,16 @@ function ProductDetails({ product, handleModalOpen }) {
             variant="body1"
             display="flex"
             alignItems="center"
+            width = '50%'
             fontWeight={"bold"}
           >
-            <CurrencyRupeeOutlinedIcon fontSize="small" /> {product.price}
+           { `${new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR',   minimumFractionDigits: 0, maximumFractionDigits: 0  }).format(product.price)} /${product.unit}`} 
           </Typography>
         )}
 
         <Button
           variant="text"
-          sx={{ width: "100%", color: "blue" }}
+          sx={{ width: "100%", color: "blue",}}
           onClick={handleModalOpen}
         >
           {product?.price ? "Get Best Quote" : "Ask for price"}

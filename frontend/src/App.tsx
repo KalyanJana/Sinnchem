@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { Layout } from "./container/layout/Layout";
 import { useEffect, useState } from "react";
-import axios from './config/axiosConfig';
+import axios from "./config/axiosConfig";
 import { addProducts } from "./redux/reducer/ProductsReducer";
 import { useAppDispatch } from "./redux/hooks";
 import Loading from "./components/Loading";
@@ -18,7 +18,7 @@ function App() {
   //     setHttpError(false); // Reset error state before retry
   //     const response = await axios.get("/api/v1/products");
   //     setLoading(false);
-  //     console.log("products", response.data.products)
+  //     console.log("products", JSON.stringify(response.data.products))
   //     dispatch(addProducts(response.data.products));
   //   } catch (error) {
   //     setLoading(false);
