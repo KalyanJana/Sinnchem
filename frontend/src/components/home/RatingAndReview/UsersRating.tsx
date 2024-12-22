@@ -25,9 +25,9 @@ const usersRating = [
     userName: "Ayan",
     State: "Madhya Pradesh",
     city: "Sagar",
-    noOfStar: 3.5,
-    comments: "Good",
-    ratingDate: "19-July-22",
+    noOfStar: 1,
+    comments: "Poor",
+    ratingDate: "05-December-23",
     productCategory: "Diethyl Malonate",
     productName: "6-Chloro Uracil CAS",
   },
@@ -36,17 +36,28 @@ const usersRating = [
     userName: "Niraj",
     State: "Telangana",
     city: "Hyderabad",
-    noOfStar: 1,
-    comments: "Poor",
-    ratingDate: "19-July-22",
+    noOfStar: 4,
+    comments: "Good",
+    ratingDate: "19-Aug-24",
     productCategory: "Chemical Compound",
     productName: "6-Chloro Uracil CAS",
+  },
+  {
+    id: 4,
+    userName: "RG Creative Art",
+    State: "Telangana",
+    city: "Hyderabad",
+    noOfStar: 5,
+    comments: "Amazing",
+    ratingDate: "19-Nov-24",
+    productCategory: "",
+    productName: "",
   },
 ];
 function UsersRating() {
   return (
     <Container maxWidth="lg">
-      <Box sx={{ width: "70%",margin: "0 auto",}}>          
+      <Box sx={{ width: "70%", margin: "0 auto" }}>
         <Typography variant="h5" marginBottom={"2rem"}>
           Most Relevant Reviews
         </Typography>
@@ -90,11 +101,13 @@ function UsersRating() {
 
                 <Typography variant="p">
                   {item.ratingDate}
-                  <Typography variant="p" sx={{ color: "gray" }}>
-                    {" "}
-                    | Product Name:
-                  </Typography>{" "}
-                  {item.productCategory}
+                  {item?.productCategory && (
+                    <Typography variant="p" sx={{ color: "gray" }}>
+                      {" "}
+                      | Product Name:
+                    </Typography>
+                  )}{" "}
+                  {item?.productCategory}
                 </Typography>
 
                 {item.comments.trim() && (

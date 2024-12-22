@@ -179,7 +179,7 @@ export function Header() {
             </Box>
             <Box display="flex" alignItems="center">
               <StarIcon sx={{ mr: 1, color: "gold" }} />
-              <Typography variant="body2">Rating: 3.5/5</Typography>
+              <Typography variant="body2">Rating: 4/5</Typography>
             </Box>
             <Box display="flex" alignItems="center">
               <EmailIcon sx={{ mr: 1 }} />

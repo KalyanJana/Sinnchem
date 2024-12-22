@@ -12,10 +12,10 @@ import StarIcon from "@mui/icons-material/Star";
 import { linearProgressClasses } from "@mui/material/LinearProgress";
 
 const starBar = [
-  { id: 1, barPercentage: 50, userCounts: 4, noOfStar: 5 },
-  { id: 2, barPercentage: 20, userCounts: 1, noOfStar: 4 },
-  { id: 3, barPercentage: 40, userCounts: 3, noOfStar: 3 },
-  { id: 4, barPercentage: 30, userCounts: 2, noOfStar: 2 },
+  { id: 1, barPercentage: 100, userCounts: 3, noOfStar: 5 },
+  { id: 2, barPercentage: 80, userCounts: 1, noOfStar: 4 },
+  { id: 3, barPercentage: 0, userCounts: 0, noOfStar: 3 },
+  { id: 4, barPercentage: 0, userCounts: 0, noOfStar: 2 },
   { id: 5, barPercentage: 20, userCounts: 1, noOfStar: 1 },
 ];
 
@@ -37,8 +37,17 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
+
+const totalStar = starBar.reduce((acc,curr)=>{
+  return acc +=(curr.noOfStar * curr.userCounts)
+}, 0)
+
+const totalUsers = starBar.reduce((acc,curr)=>{
+  return acc +=curr.userCounts
+}, 0)
+
 function RatingAndReview() {
-  const [value, setValue] = useState<number | null>(3.5);
+  const [value, setValue] = useState<number | null>(totalStar/totalUsers);
 
   return (
     <Container maxWidth="lg">
@@ -70,7 +79,7 @@ function RatingAndReview() {
                 gap: '0.5rem',
               }}
             >
-              <Typography>3.5/5</Typography>
+              <Typography>{`${value}/${totalUsers}`}</Typography>
               <Rating
                 name="simple-controlled"
                 readOnly 
@@ -82,7 +91,7 @@ function RatingAndReview() {
                 }}
               />
             </Box>
-            <Typography>Reviewed by 11 users</Typography>
+            <Typography>{`Reviewed by ${totalUsers} users`}</Typography>
           </Grid>
 
           <Grid item xs={12} sm={6} >
