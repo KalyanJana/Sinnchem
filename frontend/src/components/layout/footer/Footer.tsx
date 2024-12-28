@@ -45,10 +45,10 @@ export const Footer = () => {
               <Typography variant="h6">Sinnchem Life Science</Typography>
               {/* <Typography variant="body2">123 Business St., City, Country</Typography> */}
               <Typography variant="body2">
-                Flat-102, Block G, Gulmohar Gardens, Shakti Sri Nagar,
+                Plot No 119/5, Phase-2, IDA
               </Typography>
               <Typography variant="body2">
-                Mallapur, Hyderabad-500076, Telangana, India
+                Cherlaplly, Hyderabad - 500051, Telangana, India
               </Typography>
               <Typography variant="body2">Email: info@sinnchem.com</Typography>
               <Typography variant="body2">{`Phone: +91 ${

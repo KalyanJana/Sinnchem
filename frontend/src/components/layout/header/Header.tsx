@@ -26,7 +26,8 @@ import { List, ListItem, Stack, Drawer, Divider } from "@mui/material";
 import { updateProductIdAndCategory } from "../../../redux/reducer/ProductsReducer";
 import CloseIcon from "@mui/icons-material/Close";
 // const newLogo = 'https://res.cloudinary.com/dr5kay5i6/image/upload/v1734634740/sinnchem/logo_xejhf2.png';
-const newLogo = 'https://res.cloudinary.com/dr5kay5i6/image/upload/v1734796331/sinnchem/sinnchem_new_logo_v7glhv.png';
+const newLogo =
+  "https://res.cloudinary.com/dr5kay5i6/image/upload/v1734796331/sinnchem/sinnchem_new_logo_v7glhv.png";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,7 +49,6 @@ const Search = styled("div")(({ theme }) => ({
     marginLeft: "-1rem", // Shift slightly to the left
   },
 }));
-
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -76,7 +76,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
 const pages = [
   { id: 1, name: "Home", path: "/home" },
   { id: 2, name: "Our Products", path: "/products" },
@@ -91,7 +90,9 @@ export function Header() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleOpenNavMenu = () => {
@@ -150,61 +151,82 @@ export function Header() {
             color: "white",
             py: 1,
             px: 2,
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: { xs: "column", sm: "row" },
-            textAlign: "center",
-            alignItems: "center",
           }}
         >
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            alignItems="center"
-            sx={{ flexWrap: "wrap" }}
+          <Container
+            maxWidth="lg"
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", sm: "row" }, // Column for mobile, row for larger screens
+              justifyContent: { xs: "center", sm: "space-between" }, // Center items on mobile, space-between on desktop
+              alignItems: { xs: "center", sm: "flex-start" }, // Center items on mobile, align to start on desktop
+              gap: 2, // Adds spacing for mobile view
+            }}
           >
-            <Box display="flex" alignItems="center">
-              <LocationOnIcon sx={{ mr: 1 }} />
-              <Typography variant="body2">
-                Mallapur, Hyderabad, Telangana
-              </Typography>
-            </Box>
-            <Box display="flex" alignItems="center">
-              <GavelIcon sx={{ mr: 1 }} />
-              <Typography variant="body2">GST: 36ABFCS9022H1Z8</Typography>
-            </Box>
-            <Box display="flex" alignItems="center">
-              <VerifiedIcon sx={{ mr: 1, color: "gold" }} />
-              <Typography variant="body2">Verified Supplier</Typography>
-            </Box>
-            <Box display="flex" alignItems="center">
-              <StarIcon sx={{ mr: 1, color: "gold" }} />
-              <Typography variant="body2">Rating: 4/5</Typography>
-            </Box>
-            <Box display="flex" alignItems="center">
-              <EmailIcon sx={{ mr: 1 }} />
-              <Typography variant="body2">info@sinnchem.com</Typography>
-            </Box>
-            <Box display="flex" alignItems="center">
-              <PhoneIcon sx={{ mr: 1 }} />
-              <Typography variant="body2">{`+91 ${import.meta.env.VITE_CALL_MOBILE_NUMBER}`}</Typography>
-            </Box>
-            {/* Close button for the info box */}
-            <IconButton
-              onClick={handleCloseInfoBox}
-              size="small"
-              sx={{ color: "white", ml: 2 }}
+            {/* Address Section */}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: { xs: "center", sm: "flex-start" }, // Center for mobile, align left for desktop
+                textAlign: { xs: "center", sm: "left" }, // Center text for mobile, left align for desktop
+              }}
             >
-              <CloseIcon />
-            </IconButton>
-          </Stack>
+              <Box
+                display="flex"
+                alignItems="center"
+                sx={{ mb: { xs: 1, sm: 0 } }}
+              >
+                <LocationOnIcon sx={{ mr: 1 }} />
+                <Box>
+                  <Typography variant="body2">
+                    Plot No 119/5, Phase-2, IDA
+                  </Typography>
+                  <Typography variant="body2">
+                    Cherlaplly, Hyderabad, 500051
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+
+            {/* Email, Mobile Number, and Close Section */}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", sm: "row" }, // Column for mobile, row for larger screens
+                alignItems: "center",
+                gap: 2, // Adds spacing between items
+              }}
+            >
+              <Box display="flex" alignItems="center">
+                <EmailIcon sx={{ mr: 1 }} />
+                <Typography variant="body2">info@sinnchem.com</Typography>
+              </Box>
+              <Box display="flex" alignItems="center">
+                <PhoneIcon sx={{ mr: 1 }} />
+                <Typography variant="body2">{`+91 ${
+                  import.meta.env.VITE_CALL_MOBILE_NUMBER
+                }`}</Typography>
+              </Box>
+              <IconButton
+                onClick={handleCloseInfoBox}
+                size="small"
+                sx={{ color: "white" }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          </Container>
         </Box>
       )}
 
       {/* Header with AppBar */}
       <AppBar position="static" sx={{ p: "0.3rem 0" }}>
         <Container maxWidth="lg">
-          <Toolbar disableGutters sx={{ justifyContent: { xs: "space-between" } }}>
+          <Toolbar
+            disableGutters
+            sx={{ justifyContent: { xs: "space-between" } }}
+          >
             <Box
               component={Link}
               to="/"
