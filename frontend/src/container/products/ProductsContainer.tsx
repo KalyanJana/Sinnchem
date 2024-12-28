@@ -94,7 +94,7 @@ function ProductsContainer() {
       </Fade>
 
       {/* WhatsApp Button */}
-      <WhatsAppButton />
+      {/* <WhatsAppButton /> */}
 
     </Container>
   )

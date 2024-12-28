@@ -17,7 +17,7 @@ const Home = () => {
       {/* <RatingAndReview /> */}
       {/* <UsersRating /> */}
       <Contact />
-      <WhatsAppButton />
+      {/* <WhatsAppButton /> */}
     </Box>
   )
 }
