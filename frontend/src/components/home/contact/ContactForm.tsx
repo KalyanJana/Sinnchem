@@ -114,8 +114,8 @@ function ContactForm() {
 
         <Box sx={{ marginLeft: 5 }}>
           <Typography variant="body2">
-            Flat No. 102, Block G, Gulmohar Gardens, Shakti Sri Nagar, Mallapur,
-            Hyderabad - 500076, Telangana, India
+            Plot No 119/5, Phase-2, IDA Cherlaplly, 
+            Hyderabad - 500051, Telangana, India
           </Typography>
           <Button onClick={handleGetDirections} variant="text" color="primary" sx={{ mt: 1 }}>
             <TurnRightOutlinedIcon fontSize="small" /> Get Directions
