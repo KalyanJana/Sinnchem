@@ -83,7 +83,7 @@ function About() {
           + Read More
         </Button>
 
-        <Grid
+        {/* <Grid
           container
           rowSpacing={3}
           sx={{width: '100%', m: "0 auto",}}
@@ -127,7 +127,7 @@ function About() {
               );
             })
           }
-        </Grid>
+        </Grid> */}
       </Box>
     </Container>
   );

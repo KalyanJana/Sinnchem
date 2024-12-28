@@ -48,7 +48,7 @@ function Products() {
           marginBottom={"2rem"}
           textAlign="center"
         >
-          Our Products Category
+          Products Category
         </Typography>
 
         <Grid container rowSpacing={1}>

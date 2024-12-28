@@ -14,8 +14,8 @@ const Home = () => {
       <CarouselContainer />
       <About />
       <Products />
-      <RatingAndReview />
-      <UsersRating />
+      {/* <RatingAndReview /> */}
+      {/* <UsersRating /> */}
       <Contact />
       <WhatsAppButton />
     </Box>

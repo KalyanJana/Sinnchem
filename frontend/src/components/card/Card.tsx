@@ -39,7 +39,7 @@ export default function CustomCard({
         component="img"
         height="140"
         image={productImage}
-        alt="unsplash image"
+        alt={`${productName} image`}
       />
 
       <CardContent
@@ -60,9 +60,7 @@ export default function CustomCard({
       <CardActions>
         <Button
           size="large"
-          // component={Link}
-          // to={`/products/${productId}`}
-          onClick={handleButtonClick} // Attach the handler here
+          onClick={handleButtonClick} 
           sx={{ width: "100%", bgColor: "primary.main" }}
           variant={btnClass}
           aria-label="product name"
