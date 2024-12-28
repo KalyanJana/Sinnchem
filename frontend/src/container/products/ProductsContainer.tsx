@@ -77,7 +77,7 @@ function ProductsContainer() {
           sx={{
             position: "fixed",
             bottom: "2rem",
-            right: "6rem",
+            right: "1rem",
             zIndex: 1000,
             borderRadius: "50%",
             minWidth: "auto",
